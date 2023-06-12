@@ -1,6 +1,4 @@
-﻿using Domain.Models;
-
-namespace WebAPIBiblioteca.Repository
+﻿namespace WebAPIBiblioteca.Repository
 {
     public interface ILivrosRepository
     {

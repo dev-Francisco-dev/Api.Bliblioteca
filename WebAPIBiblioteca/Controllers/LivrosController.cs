@@ -1,4 +1,3 @@
-using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebAPIBiblioteca.Repository;
 
@@ -6,11 +5,11 @@ namespace WebAPIBiblioteca.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BibliotecaController : ControllerBase
+    public class LivrosController : ControllerBase
     {
         private readonly ILivrosRepository _livroRepository;
 
-        public BibliotecaController(ILivrosRepository livroRepository)
+        public LivrosController(ILivrosRepository livroRepository)
         {
             _livroRepository = livroRepository;
         }
@@ -26,7 +25,7 @@ namespace WebAPIBiblioteca.Controllers
         public ActionResult Get(int id)
         {
             var livro = _livroRepository.Get(id);
-            if(livro == null)
+            if (livro == null)
             {
                 return NotFound("Usuario Não cadastrado!");
             }
@@ -53,9 +52,5 @@ namespace WebAPIBiblioteca.Controllers
             _livroRepository.Delete(id);
             return Ok();
         }
-
-
-
-
     }
 }
