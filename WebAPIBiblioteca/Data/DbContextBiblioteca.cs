@@ -15,7 +15,7 @@ namespace WebAPIBiblioteca.Data
             Modelbuider.Entity<Categoria>().Property(a => a.CategoriaId).IsRequired();
             Modelbuider.Entity<Livro>().HasMany(l => l.Categorias).WithMany(c => c.Livros);
             Modelbuider.Entity<Author>().Property(a => a.AuthorId).IsRequired();
-            Modelbuider.Entity<Livro>().HasMany(l => l.Authores).WithMany(c => c.Livros);
+            Modelbuider.Entity<Livro>().HasMany(l => l.Authors).WithMany(c => c.livros);
 
             //Modelbuider.ApplyConfiguration<Cliente>(new ClienteConfiguration());
         }

@@ -7,7 +7,7 @@
         public DateTimeOffset AnoDePublicacao { get; set; }
         public string? ISBN { get; set; }
         public ICollection<Categoria>? Categorias { get; set; }
-        public ICollection<Author>? Authores { get; set; }
+        public ICollection<Author>? Authors { get; set; }
         //public ICollection<Comentario>? Comentarios { get; set; }
         //public ICollection<Emprestimo>? Emprestimos { get; set; }
 

@@ -5,26 +5,26 @@ namespace WebAPIBiblioteca.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class LivrosController : ControllerBase
+    public class AutoresController : ControllerBase
     {
-        private readonly ILivrosRepository _livrosRepository;
+        private readonly IAuthoresRepository _authoresRepository;
 
-        public LivrosController(ILivrosRepository livrosRepository)
+        public AutoresController(IAuthoresRepository authoresRepository)
         {
-            _livrosRepository = livrosRepository;
+            _authoresRepository = authoresRepository;
         }
-
+        
         [HttpGet]
         public ActionResult GetAll()
         {
-            var Livros = _livrosRepository.GetAll();
+            var Livros = _authoresRepository.GetAll();
             return Ok(Livros);
         }
 
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            var livro = _livrosRepository.Get(id);
+            var livro = _authoresRepository.Get(id);
             if (livro == null)
             {
                 return NotFound("Usuario Não cadastrado!");
@@ -33,23 +33,23 @@ namespace WebAPIBiblioteca.Controllers
         }
 
         [HttpPost]
-        public IActionResult Insert([FromBody] Livro livro)
+        public IActionResult Insert([FromBody] Author author)
         {
-            _livrosRepository.Insert(livro);
-            return Ok(livro);
+            _authoresRepository.Insert(author);
+            return Ok(author);
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] Livro livro)
+        public IActionResult Update([FromBody] Author author)
         {
-            _livrosRepository.Update(livro);
-            return Ok(livro);
+            _authoresRepository.Update(author);
+            return Ok(author);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _livrosRepository.Delete(id);
+            _authoresRepository.Delete(id);
             return Ok();
         }
     }
