@@ -13,12 +13,13 @@ namespace WebAPIBiblioteca.Repository
         public List<Livro> GetAll()
         {
             var livros = _db.Livros.ToList();
+
             return livros;
         }
         public Livro Get(int id)
         {
-            var livro = _db.Livros.Include(l => l.Categorias).FirstOrDefault(a => a.LivroId == id);
-            return livro;
+            var livro = _db.Livros.Include(l => l.Categorias).Include(l => l.Authors).FirstOrDefault(a => a.LivroId == id);
+            return livro!;
         }
         public void Insert(Livro livro)
         {

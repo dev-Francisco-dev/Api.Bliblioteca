@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPIBiblioteca.Data;
 
@@ -11,9 +12,11 @@ using WebAPIBiblioteca.Data;
 namespace WebAPIBiblioteca.Migrations
 {
     [DbContext(typeof(DbContextBiblioteca))]
-    partial class DbContextBibliotecaModelSnapshot : ModelSnapshot
+    [Migration("20230613175240_Usuario_Emprestimo_Usuarios")]
+    partial class Usuario_Emprestimo_Usuarios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,36 +88,6 @@ namespace WebAPIBiblioteca.Migrations
                     b.HasKey("CategoriaId");
 
                     b.ToTable("Categorias");
-                });
-
-            modelBuilder.Entity("Domain.Models.Comentario", b =>
-                {
-                    b.Property<int>("ComentarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComentarioId"));
-
-                    b.Property<double>("Avaliacao")
-                        .HasColumnType("float");
-
-                    b.Property<int>("LivroId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Mensagem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ComentarioId");
-
-                    b.HasIndex("LivroId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Comentario");
                 });
 
             modelBuilder.Entity("Domain.Models.Editora", b =>
@@ -261,25 +234,6 @@ namespace WebAPIBiblioteca.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Models.Comentario", b =>
-                {
-                    b.HasOne("Domain.Models.Livro", "Livro")
-                        .WithMany("Comentarios")
-                        .HasForeignKey("LivroId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Usuario", "Usuario")
-                        .WithMany("Comentarios")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Livro");
-
-                    b.Navigation("Usuario");
-                });
-
             modelBuilder.Entity("Domain.Models.Emprestimo", b =>
                 {
                     b.HasOne("Domain.Models.Livro", "Livro")
@@ -323,15 +277,11 @@ namespace WebAPIBiblioteca.Migrations
 
             modelBuilder.Entity("Domain.Models.Livro", b =>
                 {
-                    b.Navigation("Comentarios");
-
                     b.Navigation("Emprestimos");
                 });
 
             modelBuilder.Entity("Domain.Models.Usuario", b =>
                 {
-                    b.Navigation("Comentarios");
-
                     b.Navigation("Emprestimos");
 
                     b.Navigation("Livros");
