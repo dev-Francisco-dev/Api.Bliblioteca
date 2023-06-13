@@ -5,11 +5,11 @@ namespace WebAPIBiblioteca.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AutoresController : ControllerBase
+    public class AuthorController : ControllerBase
     {
         private readonly IAuthoresRepository _authoresRepository;
 
-        public AutoresController(IAuthoresRepository authoresRepository)
+        public AuthorController(IAuthoresRepository authoresRepository)
         {
             _authoresRepository = authoresRepository;
         }

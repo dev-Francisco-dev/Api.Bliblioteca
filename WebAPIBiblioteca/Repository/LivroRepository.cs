@@ -3,32 +3,32 @@ using WebAPIBiblioteca.Data;
 
 namespace WebAPIBiblioteca.Repository
 {
-    public class LivroRepository : ILivrosRepository
+    public class EmprestimoRepository : IEmprestimoRepository
     {
         private readonly DbContextBiblioteca _db;
-        public LivroRepository(DbContextBiblioteca db)
+        public EmprestimoRepository(DbContextBiblioteca db)
         {
             _db = db;
         }
-        public List<Livro> GetAll()
+        public List<Emprestimo> GetAll()
         {
-            var livros = _db.Livros.ToList();
+            var emprestimos = _db.Emprestimos.ToList();
 
-            return livros;
+            return emprestimos;
         }
-        public Livro Get(int id)
+        public Emprestimo Get(int id)
         {
-            var livro = _db.Livros.Include(l => l.Categorias).Include(l => l.Authors).FirstOrDefault(a => a.LivroId == id);
-            return livro!;
+            var emprestimo = _db.Emprestimos.Include(l => l.Usuario).Include(l => l.Livro).FirstOrDefault(a => a.EmprestimoId == id);
+            return emprestimo!;
         }
-        public void Insert(Livro livro)
+        public void Insert(Emprestimo emprestimo)
         {
-            _db.Livros.Add(livro);
+            _db.Emprestimos.Add(emprestimo);
             _db.SaveChanges();
         }
-        public void Update(Livro livro)
+        public void Update(Emprestimo emprestimo)
         {
-            _db.Entry(livro).State = EntityState.Modified;
+            _db.Entry(emprestimo).State = EntityState.Modified;
             _db.SaveChanges();
         }
         public void Delete(int id)

@@ -10,6 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped<ILivrosRepository, LivroRepository>();
 builder.Services.AddScoped<IAuthoresRepository, AuthoresRepository>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IEditoraRepository, EditoraRepository>();
+builder.Services.AddScoped<IEmprestimoRepository, EmprestimoRepository>();
+builder.Services.AddScoped<IComentarioRepository, ComentarioRepository>();
+
 builder.Services.AddDbContext<DbContextBiblioteca>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("BibliotecaDbContext"))
    );

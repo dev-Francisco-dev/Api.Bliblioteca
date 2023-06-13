@@ -10,7 +10,6 @@
         public ICollection<Author>? Authors { get; set; }
         public ICollection<Comentario>? Comentarios { get; set; }
         public ICollection<Emprestimo>? Emprestimos { get; set; }
-
         public ICollection<Editora>? Editoras { get; set; }
     }
 }
