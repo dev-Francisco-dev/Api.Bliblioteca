@@ -12,18 +12,18 @@ namespace WebAPIBiblioteca.Repository
         }
         public List<Categoria> GetAll()
         {
-            var Categoria = _db.Categorias.ToList();
+            var Categoria = _db.Categorias!.ToList();
 
             return Categoria;
         }
         public Categoria Get(int id)
         {
-            var categ = _db.Categorias.Include(l => l.Livros).FirstOrDefault(a => a.CategoriaId == id);
-            return categ;
+            var categ = _db.Categorias!.FirstOrDefault(a => a.CategoriaId == id);
+            return categ!;
         }
         public void Insert(Categoria categoria)
         {
-            _db.Categorias.Add(categoria);
+            _db.Categorias!.Add(categoria);
             _db.SaveChanges();
         }
         public void Update(Categoria categoria)

@@ -18,7 +18,7 @@ namespace WebAPIBiblioteca.Repository
         }
         public Comentario Get(int id)
         {
-            var coment = _db.comentarios!.Include(l => l.Usuario).Include(l => l.LivroId).FirstOrDefault(a => a.ComentarioId == id);
+            var coment = _db.comentarios!.FirstOrDefault(a => a.ComentarioId == id);
             return coment!;
         }
         public void Insert(Comentario comentario)

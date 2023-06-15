@@ -1,3 +1,4 @@
+using Domain.DTO;
 using Microsoft.AspNetCore.Mvc;
 using WebAPIBiblioteca.Repository;
 
@@ -18,7 +19,17 @@ namespace WebAPIBiblioteca.Controllers
         public ActionResult GetAll()
         {
             var Livros = _livrosRepository.GetAll();
-            return Ok(Livros);
+            List<LivroGetAllDto> livroGetAllDtos = new List<LivroGetAllDto>();
+            foreach (var livro in Livros)
+            {
+               livroGetAllDtos.Add(new LivroGetAllDto { 
+                   LivroId = livro.LivroId,
+                   Titulo = livro.Titulo,
+                   AnoDePublicacao = livro.AnoDePublicacao,
+                   ISBN = livro.ISBN,
+               });
+            }
+            return Ok(livroGetAllDtos);
         }
 
         [HttpGet("{id}")]
@@ -27,22 +38,53 @@ namespace WebAPIBiblioteca.Controllers
             var livro = _livrosRepository.Get(id);
             if (livro == null)
             {
-                return NotFound("Usuario Não cadastrado!");
+                return NotFound("Não cadastrado!");
             }
-            return Ok(livro);
+
+            LivroGetAllDto livroGetAllDto = new LivroGetAllDto
+            {
+                LivroId = livro.LivroId,
+                Titulo = livro.Titulo,
+                AnoDePublicacao = livro.AnoDePublicacao,
+                ISBN = livro.ISBN
+            };
+
+            return Ok(livroGetAllDto);
         }
 
         [HttpPost]
-        public IActionResult Insert([FromBody] Livro livro)
+        public IActionResult Insert([FromBody] LivroInsertDto livro)
         {
-            _livrosRepository.Insert(livro);
-            return Ok(livro);
+                    
+            if (livro != null)
+            {
+                Livro novoLivro = new Livro()
+                {
+                    Titulo = livro.Titulo!,
+                    AnoDePublicacao = livro.AnoDePublicacao,
+                    ISBN = livro.ISBN
+                };
+                _livrosRepository.Insert(novoLivro);
+            }
+            
+            return Ok("Livro Inserido com Sucesso!");
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] Livro livro)
+        public IActionResult Update([FromBody] LivroGetAllDto livro)
         {
-            _livrosRepository.Update(livro);
+            if (livro != null)
+            {
+                Livro atualizaLivro = new Livro()
+                {
+                    LivroId = livro.LivroId,
+                    Titulo = livro.Titulo!,
+                    AnoDePublicacao = livro.AnoDePublicacao,
+                    ISBN = livro.ISBN
+                };
+                _livrosRepository.Update(atualizaLivro);
+            }
+            
             return Ok(livro);
         }
 

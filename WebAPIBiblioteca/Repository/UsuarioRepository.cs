@@ -1,39 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using WebAPIBiblioteca.Data;
 
 namespace WebAPIBiblioteca.Repository
 {
-    public class AuthoresRepository : IAuthoresRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         private readonly DbContextBiblioteca _db;
-        public AuthoresRepository(DbContextBiblioteca db)
+        public UsuarioRepository(DbContextBiblioteca db)
         {
             _db = db;
         }
-        public List<Author> GetAll()
+        public List<Usuario> GetAll()
         {
-            var authores = _db.Authores.ToList();
-            return authores;
+            var usuarios = _db.Usuarios.ToList();
+            return usuarios;
         }
-        public Author Get(int id)
+        public Usuario Get(int id)
         {
-            var author = _db.Authores.Include(l => l.livros).FirstOrDefault(a => a.AuthorId == id);
-            return author;
+            var users = _db.Usuarios.FirstOrDefault(a => a.UsuarioId == id);
+            return users!;
         }
-        public void Insert(Author author)
+        public void Insert(Usuario usuario)
         {            
-            _db.Authores.Add(author);
+            _db.Usuarios.Add(usuario);
             _db.SaveChanges();
         }
-        public void Update(Author author)
+        public void Update(Usuario usuario)
         {
-            var autors = _db.Authores.Find(Get(author.AuthorId));
-            if(autors == null)
-            {
-                _db.Add(author);
-                _db.SaveChanges();
-            }
-            
+            _db.Entry(usuario).State = EntityState.Modified;
+            _db.SaveChanges();
+
         }
         public void Delete(int id)
         {

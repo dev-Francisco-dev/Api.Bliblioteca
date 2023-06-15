@@ -1,34 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using WebAPIBiblioteca.Data;
 
 namespace WebAPIBiblioteca.Repository
 {
-    public class EmprestimoRepository : IEmprestimoRepository
+    public class LivroRepository : ILivrosRepository
     {
         private readonly DbContextBiblioteca _db;
-        public EmprestimoRepository(DbContextBiblioteca db)
+        public LivroRepository(DbContextBiblioteca db)
         {
             _db = db;
         }
-        public List<Emprestimo> GetAll()
+        public List<Livro>GetAll()
         {
-            var emprestimos = _db.Emprestimos.ToList();
+            var livros = _db.Livros.ToList();                                   
 
-            return emprestimos;
+                return livros;
         }
-        public Emprestimo Get(int id)
+        public Livro Get(int id)
         {
-            var emprestimo = _db.Emprestimos.Include(l => l.Usuario).Include(l => l.Livro).FirstOrDefault(a => a.EmprestimoId == id);
-            return emprestimo!;
+            var livro = _db.Livros.FirstOrDefault(a => a.LivroId == id);
+          
+            return livro!;
         }
-        public void Insert(Emprestimo emprestimo)
+        public void Insert(Livro livro)
         {
-            _db.Emprestimos.Add(emprestimo);
+            _db.Add(livro);
             _db.SaveChanges();
         }
-        public void Update(Emprestimo emprestimo)
+        public void Update(Livro livro)
         {
-            _db.Entry(emprestimo).State = EntityState.Modified;
+            _db.Entry(livro).State = EntityState.Modified;
             _db.SaveChanges();
         }
         public void Delete(int id)

@@ -1,4 +1,6 @@
-﻿namespace WebAPIBiblioteca.Repository
+﻿using Domain.DTO;
+
+namespace WebAPIBiblioteca.Repository
 {
     public interface ILivrosRepository
     {

@@ -19,18 +19,14 @@ namespace WebAPIBiblioteca.Data
         {                      
             Modelbuilder.Entity<Livro>().HasMany(l => l.Categorias).WithMany(c => c.Livros);          
             Modelbuilder.Entity<Livro>().HasMany(l => l.Authors).WithMany(c => c.livros);
-            Modelbuilder.Entity<Editora>().HasMany(e => e.livros).WithMany(l => l.Editoras);           
-
+            Modelbuilder.Entity<Editora>().HasMany(e => e.livros).WithMany(l => l.Editoras);  
 
             Modelbuilder.Entity<Usuario>().HasMany(u => u.Emprestimos).WithOne(e => e.Usuario).HasForeignKey(e => e.UsuarioId);
             Modelbuilder.Entity<Livro>().HasMany(u => u.Emprestimos).WithOne(e => e.Livro).HasForeignKey(e => e.LivroId);
 
             Modelbuilder.Entity<Usuario>().HasMany(u => u.Comentarios).WithOne(e => e.Usuario).HasForeignKey(e => e.UsuarioId);
-            Modelbuilder.Entity<Livro>().HasMany(u => u.Comentarios).WithOne(e => e.Livro).HasForeignKey(e => e.LivroId);
-
-                    
-
-            //Modelbuider.ApplyConfiguration<Cliente>(new ClienteConfiguration());
+            Modelbuilder.Entity<Livro>().HasMany(u => u.Comentarios).WithOne(e => e.Livro).HasForeignKey(e => e.LivroId);                   
+                       
         }
     }
 }

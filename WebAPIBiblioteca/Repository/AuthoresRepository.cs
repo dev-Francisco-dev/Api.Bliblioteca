@@ -3,37 +3,32 @@ using WebAPIBiblioteca.Data;
 
 namespace WebAPIBiblioteca.Repository
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class AuthoresRepository : IAuthoresRepository
     {
         private readonly DbContextBiblioteca _db;
-        public UsuarioRepository(DbContextBiblioteca db)
+        public AuthoresRepository(DbContextBiblioteca db)
         {
             _db = db;
         }
-        public List<Usuario> GetAll()
+        public List<Author> GetAll()
         {
-            var usuarios = _db.Usuarios.ToList();
-            return usuarios;
+            var authores = _db.Authores!.ToList();
+            return authores;
         }
-        public Usuario Get(int id)
+        public Author Get(int id)
         {
-            var users = _db.Usuarios.Include(l => l.Comentarios).FirstOrDefault(a => a.UsuarioId == id);
-            return users;
+            var author = _db.Authores!.FirstOrDefault(a => a.AuthorId == id);
+            return author!;
         }
-        public void Insert(Usuario usuario)
+        public void Insert(Author author)
         {            
-            _db.Usuarios.Add(usuario);
+            _db.Authores!.Add(author);
             _db.SaveChanges();
         }
-        public void Update(Usuario usuario)
+        public void Update(Author author)
         {
-            var user = _db.Authores.Find(Get(usuario.UsuarioId));
-            if(user == null)
-            {
-                _db.Add(user);
-                _db.SaveChanges();
-            }
-            
+            _db.Entry(author).State = EntityState.Modified;
+            _db.SaveChanges();
         }
         public void Delete(int id)
         {
